@@ -1,7 +1,7 @@
+import os
 from dotenv import load_dotenv
 from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import CharacterTextSplitter
-# from langchain_pinecone import PineconeVectorStore
 from pinecone import Pinecone
 
 load_dotenv()
@@ -24,7 +24,7 @@ def ingestion_pipeline():
 
     
     pc = Pinecone()
-    index = pc.Index(index_name="rag-personal-project-1", host="https://rag-personal-project-1-qiplvg3.svc.aped-4627-b74a.pinecone.io")
+    index = pc.Index(index_name=os.environ["INDEX_NAME"], host=os.environ["PINECONE_HOST"])
 
     index.upsert_records(
         namespace="default",
